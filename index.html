@@ -13,11 +13,25 @@
     <div style="display:flex;">Total Points:
         <p style="margin:0" id="totalPoints"></p>
     </div>
+    <!-- <div style="display:flex;">Monte Carlo Pi:
+        <p style="margin:0" id="montePi"></p>
+    </div> -->
     <div>Speed</div>
     <div class="slidecontainer">
         <input id="slider" type="range" min="1" max="100" value="50" class="slider" id="myRange">
     </div>
-    <button onclick="start(circle,true)">Start</button>
+    <button onclick="start(line,false)">Start</button>
+    <br />
+    <div style="display:flex;">
+        From:
+        <input type="text" id="aPos" value="0"> To:
+        <input type="text" id="bPos" value="2">
+    </div>
+
+    <button onclick="integrateBySummation(line)">Integrate</button>
+    <div style="display:flex;">Area:
+        <p style="margin:0" id="intArea"></p>
+    </div>
     <script src="index.js">
     </script>
 </body>

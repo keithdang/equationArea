@@ -16,6 +16,21 @@ function start(equation, bSquareRoot) {
   drawLine(equation, bSquareRoot);
   randomPoints(equation, bSquareRoot);
 }
+function integrateBySummation(equation) {
+  var aPos = parseInt(document.getElementById("aPos").value);
+  var bPos = parseInt(document.getElementById("bPos").value);
+  var y;
+  var count = 0;
+  for (x = aPos; x <= bPos; x++) {
+    y = equation(x);
+    count += y;
+    //   yEq =
+    //   if (bSquareRoot) {
+    //     yEq2 = equation(x, bSquareRoot);
+    //   }
+  }
+  document.getElementById("intArea").innerHTML = count;
+}
 function createBoard() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   for (i = 0; i <= BOARDLEN; i = i + PIECELEN) {
@@ -56,9 +71,9 @@ function randomPoints(equation, bSquareRoot) {
         }
       }
       countTotal++;
-      console.log(x, y, yEq, yEq2, count);
       document.getElementById("totalPoints").innerHTML = countTotal;
       document.getElementById("circlePoints").innerHTML = count;
+      //document.getElementById("montePi").innerHTML = (count * 4) / countTotal;
       context.fillRect(x * PIECELEN, BOARDLEN - (1 + y) * PIECELEN, 60, 60);
     }, 10 * i * document.getElementById("slider").value);
     //
