@@ -6,7 +6,17 @@
 </head>
 
 <body>
-    <canvas id="canvas" height="600" width="600" style="border:1px solid #000000;"></canvas>
+    <canvas id="canvas" height="540" width="540" style="border:1px solid #000000;"></canvas>
+    <div style="display:flex;">Inside Points:
+        <p style="margin:0" id="circlePoints"></p>
+    </div>
+    <div style="display:flex;">Total Points:
+        <p style="margin:0" id="totalPoints"></p>
+    </div>
+    <div>Speed</div>
+    <div class="slidecontainer">
+        <input id="slider" type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    </div>
     <script src="index.js">
     </script>
 </body>

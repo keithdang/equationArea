@@ -2,43 +2,68 @@ var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 context.strokeStyle = "black";
 context.lineWidth = 1;
-var BOARDLEN = 600;
+var BOARDLEN = 540;
 var PIECELEN = 60;
-for (i = 0; i <= BOARDLEN; i = i + 60) {
+var LOOPCOUNT = BOARDLEN / PIECELEN;
+for (i = 0; i <= BOARDLEN; i = i + PIECELEN) {
   context.moveTo(i, 0);
   context.lineTo(i, BOARDLEN);
   context.stroke();
 }
-for (j = 0; j <= BOARDLEN; j = j + 60) {
+for (j = 0; j <= BOARDLEN; j = j + PIECELEN) {
   context.moveTo(0, j);
   context.lineTo(BOARDLEN, j);
   context.stroke();
 }
-//drawLine(circle, true);
-drawLine(line, false);
-randomPoints();
+start(circle, true);
+//start(line, false);
 //drawLine(xpow2, false);
 //drawLine(sqrtX, false);
+function start(equation, bSquareRoot) {
+  drawLine(equation, bSquareRoot);
+  randomPoints(equation, bSquareRoot);
+}
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
-function randomPoints() {
+function randomPoints(equation, bSquareRoot) {
   context.fillStyle = "#A9A9A9";
-  var x, y, i;
+  var x, y, i, yEq, yEq2;
+  var count = 0,
+    countTotal = 0;
   for (i = 0; i < 10; i++) {
     setTimeout(function() {
       x = getRandomInt(10);
       y = getRandomInt(10);
+      yEq = equation(x);
+      if (bSquareRoot) {
+        yEq2 = equation(x, bSquareRoot);
+      }
+
+      if (y <= yEq) {
+        if (bSquareRoot) {
+          if (y >= yEq2) {
+            count++;
+          }
+        } else {
+          count++;
+        }
+      }
+      countTotal++;
+      console.log(x, y, yEq, yEq2, count);
+      document.getElementById("totalPoints").innerHTML = countTotal;
+      document.getElementById("circlePoints").innerHTML = count;
       context.fillRect(x * PIECELEN, BOARDLEN - (1 + y) * PIECELEN, 60, 60);
-    }, 2000 * i);
+    }, 10 * i * document.getElementById("slider").value);
+    //
   }
 }
 
 function drawLine(equation, bSquareRoot) {
   context.fillStyle = "#FF0000";
   var y, y2;
-  for (var x = 0; x < 10; x++) {
+  for (var x = 0; x < LOOPCOUNT; x++) {
     y = equation(x);
     if (bSquareRoot) {
       y2 = equation(x, true);
@@ -63,9 +88,9 @@ function sqrtX(x) {
 }
 function circle(x, bSquareRoot = false) {
   var y;
-  var radius = 2;
-  var xDis = 5;
-  var yDis = 5;
+  var radius = 4;
+  var xDis = 4;
+  var yDis = 4;
   var eqPart = Math.floor(
     Math.pow(Math.pow(radius, 2) - Math.pow(x - xDis, 2), 0.5)
   );
@@ -73,6 +98,9 @@ function circle(x, bSquareRoot = false) {
     y = -eqPart + yDis;
   } else {
     y = eqPart + yDis;
+  }
+  if (isNaN(y)) {
+    y = 11;
   }
   return y;
 }
