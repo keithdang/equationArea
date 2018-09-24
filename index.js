@@ -6,11 +6,6 @@ var BOARDLEN = 540;
 var PIECELEN = 60;
 var GRIDSIZE = BOARDLEN / PIECELEN;
 createBoard();
-
-//start(circle, true);
-//start(line, false);
-//drawLine(xpow2, false);
-//drawLine(sqrtX, false);
 function start(equation, bSquareRoot) {
   createBoard();
   drawLine(equation, bSquareRoot);
@@ -24,10 +19,6 @@ function integrateBySummation(equation) {
   for (x = aPos; x <= bPos; x++) {
     y = equation(x);
     count += y;
-    //   yEq =
-    //   if (bSquareRoot) {
-    //     yEq2 = equation(x, bSquareRoot);
-    //   }
   }
   document.getElementById("intArea").innerHTML = count;
 }
@@ -73,10 +64,9 @@ function randomPoints(equation, bSquareRoot) {
       countTotal++;
       document.getElementById("totalPoints").innerHTML = countTotal;
       document.getElementById("circlePoints").innerHTML = count;
-      //document.getElementById("montePi").innerHTML = (count * 4) / countTotal;
+      document.getElementById("montePi").innerHTML = (count * 4) / countTotal;
       context.fillRect(x * PIECELEN, BOARDLEN - (1 + y) * PIECELEN, 60, 60);
     }, 10 * i * document.getElementById("slider").value);
-    //
   }
 }
 
