@@ -4,26 +4,31 @@ context.strokeStyle = "black";
 context.lineWidth = 1;
 var BOARDLEN = 540;
 var PIECELEN = 60;
-var LOOPCOUNT = BOARDLEN / PIECELEN;
-for (i = 0; i <= BOARDLEN; i = i + PIECELEN) {
-  context.moveTo(i, 0);
-  context.lineTo(i, BOARDLEN);
-  context.stroke();
-}
-for (j = 0; j <= BOARDLEN; j = j + PIECELEN) {
-  context.moveTo(0, j);
-  context.lineTo(BOARDLEN, j);
-  context.stroke();
-}
-start(circle, true);
+var GRIDSIZE = BOARDLEN / PIECELEN;
+createBoard();
+
+//start(circle, true);
 //start(line, false);
 //drawLine(xpow2, false);
 //drawLine(sqrtX, false);
 function start(equation, bSquareRoot) {
+  createBoard();
   drawLine(equation, bSquareRoot);
   randomPoints(equation, bSquareRoot);
 }
-
+function createBoard() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  for (i = 0; i <= BOARDLEN; i = i + PIECELEN) {
+    context.moveTo(i, 0);
+    context.lineTo(i, BOARDLEN);
+    context.stroke();
+  }
+  for (j = 0; j <= BOARDLEN; j = j + PIECELEN) {
+    context.moveTo(0, j);
+    context.lineTo(BOARDLEN, j);
+    context.stroke();
+  }
+}
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -34,8 +39,8 @@ function randomPoints(equation, bSquareRoot) {
     countTotal = 0;
   for (i = 0; i < 10; i++) {
     setTimeout(function() {
-      x = getRandomInt(10);
-      y = getRandomInt(10);
+      x = getRandomInt(GRIDSIZE);
+      y = getRandomInt(GRIDSIZE);
       yEq = equation(x);
       if (bSquareRoot) {
         yEq2 = equation(x, bSquareRoot);
@@ -63,7 +68,7 @@ function randomPoints(equation, bSquareRoot) {
 function drawLine(equation, bSquareRoot) {
   context.fillStyle = "#FF0000";
   var y, y2;
-  for (var x = 0; x < LOOPCOUNT; x++) {
+  for (var x = 0; x < GRIDSIZE; x++) {
     y = equation(x);
     if (bSquareRoot) {
       y2 = equation(x, true);
